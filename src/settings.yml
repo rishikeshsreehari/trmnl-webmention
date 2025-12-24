@@ -1,0 +1,17 @@
+name: Webmentions Display
+description: Display your webmentions from webmention.io on your TRMNL device
+author: Rishikesh Sreehari
+version: 1.0.0
+
+strategy: polling
+polling_url: "https://webmention.io/api/mentions.jf2?token={{ webmention_token }}&per-page=50"
+polling_interval: 10800  # in seconds (3600 = 1 hour)
+
+
+form_fields:
+  - key: webmention_token
+    label: Webmention.io sAPI Token
+    type: text
+    required: true
+    placeholder: Get your token from webmention.io/settings
+    help: Your API token from webmention.io

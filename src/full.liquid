@@ -1,0 +1,57 @@
+<div class="layout">
+  <div class="columns" data-overflow-max-cols="2" data-overflow-counter="true">
+    <div class="column">
+      {% assign sorted_mentions = children | sort: "wm-received" | reverse %}
+      {% assign max = max_mentions | default: 100 %}
+      {% assign count = 0 %}
+      
+      {% for mention in sorted_mentions %}
+        {% if count < max %}
+          {% assign count = count | plus: 1 %}
+          
+          <div class="item">
+            <div class="meta"></div>
+            
+            <div class="content flex--grow">
+              <div class="flex gap--small flex--center-y">
+                <span class="title title--small" data-clamp="1">
+                  {% render 'author_name', author: mention.author %}
+                </span>
+                <span class="label label--small label--inverted">
+                  {{ mention.wm-received | date: "%b %d" }}
+                </span>
+              </div>
+              
+              <div class="flex gap--small">
+                <span class="label label--small">From:</span>
+                <span class="label label--small label--underline" data-clamp="1">
+                  {% render 'clean_domain', url: mention.url %}
+                </span>
+              </div>
+              
+              <div class="flex gap--small">
+                <span class="label label--small">Mentioned:</span>
+                <span class="label label--small label--underline" data-clamp="1">
+                  {% render 'url_path', url: mention.wm-target %}
+                </span>
+              </div>
+            </div>
+            
+            <div class="margin--left-auto padding--left-small">
+              {% render 'qr_code', url: mention.url %}
+            </div>
+          </div>
+          
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<div class="title_bar">
+  <img class="image" src="https://webmention.io/img/webmention-logo-380.png" />
+  <span class="title">Webmentions</span>
+  <span class="instance">
+     Updated at {{ "now" | date: '%s' | plus: trmnl.user.utc_offset | date: "%H:%M" }}
+  </span>
+</div>

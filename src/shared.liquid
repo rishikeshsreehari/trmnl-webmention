@@ -1,0 +1,29 @@
+{% template qr_code %}
+  {% assign qr_size = size | default: 60 %}
+  {% assign qr_api_size = qr_size | times: 2.5 | round %}
+  <img src="https://api.qrserver.com/v1/create-qr-code/?size={{ qr_api_size }}x{{ qr_api_size }}&data={{ url | url_encode }}" 
+       alt="QR Code" 
+       width="{{ qr_size }}" 
+       height="{{ qr_size }}" />
+{% endtemplate %}
+
+{% template author_name %}
+  {% if author.name != "" %}
+    {{ author.name }}
+  {% elsif author.url != "" %}
+    {{ author.url | replace: "https://", "" | replace: "http://", "" | replace: "www.", "" }}
+  {% else %}
+    Anonymous
+  {% endif %}
+{% endtemplate %}
+
+{% template clean_domain %}
+  {% assign url_clean = url | replace: "https://", "" | replace: "http://", "" %}
+  {% assign url_parts = url_clean | split: "/" %}
+  {{ url_parts[0] }}
+{% endtemplate %}
+
+{% template url_path %}
+  {% assign url_parts = url | split: "/" %}
+  /{{ url_parts | last }}
+{% endtemplate %}
