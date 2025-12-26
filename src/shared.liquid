@@ -1,10 +1,25 @@
+{% template recent_count %}
+  {% assign now_seconds = "now" | date: "%s" | plus: 0 %}
+  {% assign thirty_days_seconds = 2592000 %}
+  {% assign cutoff = now_seconds | minus: thirty_days_seconds %}
+  {% assign count = 0 %}
+  
+  {% for mention in mentions %}
+    {% assign mention_time = mention.wm-received | date: "%s" | plus: 0 %}
+    {% if mention_time >= cutoff %}
+      {% assign count = count | plus: 1 %}
+    {% endif %}
+  {% endfor %}
+  
+  {{ count }}
+{% endtemplate %}
+
 {% template qr_code %}
   {% assign qr_size = size | default: 60 %}
   {% assign qr_api_size = qr_size | times: 2.5 | round %}
   <img src="https://api.qrserver.com/v1/create-qr-code/?size={{ qr_api_size }}x{{ qr_api_size }}&data={{ url | url_encode }}" 
        alt="QR Code" 
-       width="{{ qr_size }}" 
-       height="{{ qr_size }}" />
+       class="w--[60px] h--[60px]" />
 {% endtemplate %}
 
 {% template author_name %}
