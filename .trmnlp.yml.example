@@ -1,0 +1,10 @@
+---
+watch:
+  - .trmnlp.yml
+  - src
+
+custom_fields:
+  webmention_token: "YOUR_WEBMENTION_IO_TOKEN"
+
+variables: {}
+trmnl: {}

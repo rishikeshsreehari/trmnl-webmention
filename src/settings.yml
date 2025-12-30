@@ -9,9 +9,20 @@ polling_interval: 10800  # in seconds (3600 = 1 hour)
 
 
 form_fields:
-  - key: webmention_token
-    label: Webmention.io sAPI Token
-    type: text
-    required: true
-    placeholder: Get your token from webmention.io/settings
-    help: Your API token from webmention.io
+- keyname: author_info
+  name: About This Plugin
+  field_type: author_bio
+  category: personal,programming
+  description: Display <a href="https://indieweb.org/Webmention">webmentions</a> from across the web for your personal website or blog. Webmentions are a W3C recommendation that enables websites to notify each other when content is linked, liked, reposted, or replied to - bringing decentralized social interactions to the IndieWeb. 
+  github_url: https://github.com/rishikeshsreehari/trmnl-webmention
+  learn_more_url: https://rishikeshs.com
+  email_address: hello@rishikeshs.com
+
+- keyname: webmention_token
+  field_type: string
+  name: Webmention.io API Token
+  description: Your Webmention.io API token for fetching mentions
+  placeholder: abc123def456...
+  help_text: Get your token from <a href="https://webmention.io/settings"class="underline">webmention.io</a>. after signing in with your domain.
+  required: true
+  maxlength: 100
